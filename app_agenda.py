@@ -15,7 +15,7 @@ while(True):
         case "2":
              ver_contatos(lista_contatos)
         case "3":
-            None
+            editar_contato(lista_contatos)
         case "7":
             break
         case _:  
