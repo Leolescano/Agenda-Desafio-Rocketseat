@@ -1,4 +1,4 @@
-from classe_contato import Contato
+from contato import Contato
 import os
 
 def limpar_tela()->None:
@@ -31,7 +31,7 @@ def ingresar_telefone(uso: str)-> str:
                  tel = input("Digite o novo número de telefone com DDD ## #########: ").strip()            
         if tel == "":
             print("Tel não pode ficar vazio.")
-        elif len(tel) != 12: 
+        elif len(tel) != 3: 
             print("Formato incorreto. Use ## #########.")
         else:
             return tel    
@@ -63,8 +63,18 @@ def ingresar_favorito()-> bool:
             print("Opção invalida.")    
             
 def verificar_lista(contatos: list[Contato])-> bool:
+    limpar_tela()
     if not contatos:
         print("Você ainda não possui contatos em sua agenda.")
         input()
         return False
-    return True                 
+    return True   
+
+def filtrar_lista(contatos: list[Contato])-> list[Contato]:
+    contatos_favoritos: list[Contato] = []
+    for i, contato in enumerate(contatos, start = 1):
+        if contato["favorito"] == True:
+            contatos_favoritos.append(contato)
+    return contatos_favoritos
+       
+                              

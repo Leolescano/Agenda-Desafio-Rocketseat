@@ -1,12 +1,12 @@
 from utils import limpar_tela
 from funcoes import *
-from classe_contato import Contato
+from contato import Contato
 
 lista_contatos: Contato = []
 
 while(True):
     limpar_tela()
-    ver_menu_agenda()
+    mostrar_menu_agenda()
     opcao_escolhida = input("Digite a sua escolha: ")
     
     match opcao_escolhida:
@@ -16,6 +16,8 @@ while(True):
              ver_contatos(lista_contatos)
         case "3":
             editar_contato(lista_contatos)
+        case "5":
+            ver_contatos_favoritos(lista_contatos)
         case "7":
             break
         case _:  

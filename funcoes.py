@@ -1,7 +1,7 @@
-from classe_contato import Contato
+from contato import Contato
 from utils import *
 
-def ver_menu_agenda()-> None:
+def mostrar_menu_agenda()-> None:
     print("\nMenu do Gerenciador da Agenda")
     print("1. Cadastrar contato")
     print("2. Visualizar contatos cadastrados")
@@ -27,18 +27,19 @@ def cadastrar_contato(lista_contatos: list[Contato]) -> None:
     print(f"Contato {nome} foi adicionada com sucesso!") 
     
 def ver_contatos(contatos: list[Contato]) -> None:
-    limpar_tela()
     if verificar_lista(contatos):
-        print("Lista de Contatos") 
+        print("Lista de Contatos:") 
         for i, contato in enumerate(contatos, start = 1):
             nome = contato["nome"]
             tel = contato["tel"]
             email = contato["email"]
-            status = "✓" if contato["favorito"] == True else "" #"✓"
-            print(f"""{i}. Nome: {nome}
-        Telefone: {tel}
-        E-mail: {email}
-        Favorito: [{status}]""") 
+            status = "✓" if contato["favorito"] == True else "" 
+            print("-----------------------")
+            print(f"{i}. Nome: {nome}     |")            
+            print(f"Telefone: {tel}       |")
+            print(f"E-mail: {email}       |")
+            print(f"Favorito: [{status}]  |")        
+            print("------------------------")
         input()   
         
 def buscar_contato(contatos: list[Contato])-> Contato | None:
@@ -76,7 +77,6 @@ def buscar_contato(contatos: list[Contato])-> Contato | None:
         return None
 
 def editar_contato(contatos: list[Contato])-> None:
-    limpar_tela()
     if verificar_lista(contatos):
         contato = buscar_contato(contatos) 
         contador = 0
@@ -104,7 +104,13 @@ def editar_contato(contatos: list[Contato])-> None:
                     break
                 case _:  
                     print("Opção inválida.")
-            contador += 1        
+            contador += 1  
+            
+def ver_contatos_favoritos(contatos: list[Contato])-> None:
+    if verificar_lista(contatos):
+       ver_contatos(filtrar_lista(contatos))
+             
+    
     
     
     
