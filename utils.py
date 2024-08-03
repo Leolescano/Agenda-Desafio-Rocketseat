@@ -23,17 +23,23 @@ def ingresar_telefone(motivo_uso: str) -> str:
     while True:
         match motivo_uso:
             case "cadastrar":
-                telefone = input("Digite o telefone (com DDD): ").strip()
+                telefone = input("Digite o telefone (ex: 11 912345678): ").strip()
             case "busca":
-                telefone = input("Digite o telefone a ser buscado (com DDD): ").strip()
+                telefone = input("Digite o telefone a ser buscado (ex: 11 912345678): ").strip()
             case "editar":
-                 telefone = input("Digite o novo telefone (com DDD): ").strip()            
-        if not telefone:
+                 telefone = input("Digite o novo telefone (ex: 11 912345678): ").strip()            
+        
+        telefone_tratado = ""
+        for carater in telefone:
+            if carater.isdigit():
+                telefone_tratado += carater
+        if not telefone_tratado:
             print("Telefone inválido. O telefone não pode estar vazio.")
-        elif not telefone.isdigit() or len(telefone) != 3: 
-            print("Formato de telefone inválido. Use (##) #########.")
+        elif not telefone_tratado.isdigit() or len(telefone_tratado) != 11 or telefone_tratado[2] != "9": 
+            print("Formato de telefone inválido (ex: 11 912345678).")
         else:
-            return telefone    
+            telefone_formatado =f"+{telefone_tratado[:2]} {telefone_tratado[2:7]}-{telefone_tratado[7:]}"
+            return telefone_formatado  
  
 def ingresar_email(motivo_uso: str) -> str: 
     while True:
