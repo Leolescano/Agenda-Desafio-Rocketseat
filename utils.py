@@ -1,80 +1,79 @@
 from contato import Contato
 import os
 
-def limpar_tela()->None:
-     # Limpar a consola no Git Bash
-    os.system('clear')
+def limpar_tela() -> None:
+    os.system('clear' if os.name != 'nt' else 'cls')
 
-def ingresar_nome(uso: str)-> str:
-    nome = ""
+def ingresar_nome(motivo_uso: str) -> str:
+    # nome = ""
     while True:
-        match uso:
+        match motivo_uso:
             case "cadastrar":
                 nome = input("Digite o nome do contato: ").strip()
-            case "busqueda":
-                nome = input("Digite o nome do contato buscado: ").strip()
+            case "busca":
+                nome = input("Digite o nome do contato a ser buscado: ").strip()
             case "editar":
                 nome = input("Digite o novo nome do contato: ").strip()
-        if nome == "" or len(nome) <= 1:
-            print("Nome não pode ficar vazio e nem ter só uma letra.")
+        if not nome or len(nome) <= 1:
+            print("Nome inválido. O nome deve conter pelo menos duas letras.")
         else:
             return nome
     
-def ingresar_telefone(uso: str)-> str:
+def ingresar_telefone(motivo_uso: str) -> str:
     while True:
-        match uso:
+        match motivo_uso:
             case "cadastrar":
-                tel = input("Digite o número de telefone com DDD ## #########: ").strip()
-            case "busqueda":
-                tel = input("Digite o número de telefone a ser buscado: ").strip()
+                telefone = input("Digite o telefone (com DDD): ").strip()
+            case "busca":
+                telefone = input("Digite o telefone a ser buscado (com DDD): ").strip()
             case "editar":
-                 tel = input("Digite o novo número de telefone com DDD ## #########: ").strip()            
-        if tel == "":
-            print("Tel não pode ficar vazio.")
-        elif len(tel) != 3: 
-            print("Formato incorreto. Use ## #########.")
+                 telefone = input("Digite o novo telefone (com DDD): ").strip()            
+        if not telefone:
+            print("Telefone inválido. O telefone não pode estar vazio.")
+        elif not telefone.isdigit() or len(telefone) != 3: 
+            print("Formato de telefone inválido. Use (##) #########.")
         else:
-            return tel    
+            return telefone    
  
-def ingresar_email(uso: str)-> str: 
+def ingresar_email(motivo_uso: str) -> str: 
     while True:
-        match uso:
+        match motivo_uso:
             case "cadastrar":    
-                email = input("Digite o email do contato (opcional): ").strip()
-            case "busqueda":
-                email = input("Digite o email do contato buscado: ").strip()
+                email = input("Digite o e-mail (opcional): ").strip()
+            case "busca":
+                email = input("Digite o e-mail a ser buscado: ").strip()
             case "editar":
-                email = input("Digite o novo email do contato: ").strip()
-        if (email == ""):
-            return "NÃO informado"
-        if ("@" in email and "."  in email):
+                email = input("Digite o novo email: ").strip()
+        if not email:
+            return "Nao informado"
+        if "@" in email and "."  in email and len(email) > 7:
             return email
         else:    
-            print("O e-mail deve conter um símbolo '@' e um ponto final após o '@'.")
+            print("E-mail inválido. Verifique se o e-mail está correto.")
             
-def ingresar_favorito()-> bool:
+def ingresar_favorito() -> bool:
     while True:
-        favorito = input("É favorito? (s/n): ").lower().strip()
-        if favorito == "" or favorito == 's':
+        favorito = input("O contato é favorito? (s/n): ").lower().strip()
+        if favorito == 's':
             return True
         elif favorito == "n":
             return False
         else:
-            print("Opção invalida.")    
+            print("Opção inválida. Digite 's' para sim ou 'n' para não.")    
             
-def verificar_lista(contatos: list[Contato])-> bool:
+def verificar_lista(contatos: list[Contato]) -> bool:
     limpar_tela()
     if not contatos:
-        print("Você ainda não possui contatos em sua agenda.")
-        input()
+        print("A agenda está vazia.")
+        input("Pressione Enter para continuar...")
         return False
     return True   
 
-def filtrar_lista(contatos: list[Contato])-> list[Contato]:
-    contatos_favoritos: list[Contato] = []
-    for i, contato in enumerate(contatos, start = 1):
+def filtrar_lista(contatos: list[Contato]) -> list[Contato]:
+    contatos_filtrados: list[Contato] = []
+    for _, contato in enumerate(contatos):
         if contato["favorito"] == True:
-            contatos_favoritos.append(contato)
-    return contatos_favoritos
+            contatos_filtrados.append(contato)
+    return contatos_filtrados
        
                               
