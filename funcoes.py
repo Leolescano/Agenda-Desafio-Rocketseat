@@ -109,6 +109,15 @@ def editar_contato(contatos: list[Contato]) -> None:
                 print("Opção inválida.")
         contador += 1  
             
+def favoritar_desfavoritar_contato(contatos: list[Contato]) -> None:
+    mensagem = "Buscar contato para favoritar/desfavoritar:"
+    contato = buscar_contato(contatos, mensagem)
+    if contato is not None:
+        contato["favorito"] = not contato["favorito"]
+        status = "favorito" if contato["favorito"] else "não favorito"
+        print(f"O contato {contato['nome']} agora é {status}.")
+        input("Pressione Enter para continuar...")
+
 def ver_contatos_favoritos(contatos: list[Contato]) -> None:
     if verificar_lista(contatos):
        contatos_filtrados = filtrar_lista(contatos) 
@@ -130,7 +139,9 @@ def apagar_contato(contatos: list[Contato]) -> None:
             else:
                 print("Opção inválida. Digite 's' para sim ou 'n' para não.")
         input("Pressione Enter para continuar...")
-    
-    
-        
-        
+
+
+
+
+
+

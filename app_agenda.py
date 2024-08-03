@@ -16,6 +16,8 @@ while True:
              ver_contatos(lista_contatos)
         case "3":
             editar_contato(lista_contatos)
+        case "4":
+            favoritar_desfavoritar_contato(lista_contatos)
         case "5":
             ver_contatos_favoritos(lista_contatos)
         case "6":
