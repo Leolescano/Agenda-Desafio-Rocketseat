@@ -28,17 +28,18 @@ def ingresar_telefone(motivo_uso: str) -> str:
             case "editar":
                  telefone = input("Digite o novo telefone (ex: 11 912345678): ").strip()            
         
-        telefone_tratado = ""
-        for carater in telefone:
-            if carater.isdigit():
-                telefone_tratado += carater
-        if not telefone_tratado:
-            print("Telefone inválido. O telefone não pode estar vazio.")
-        elif not telefone_tratado.isdigit() or len(telefone_tratado) != 11 or telefone_tratado[2] != "9": 
-            print("Formato de telefone inválido (ex: 11 912345678).")
+        if not telefone:
+            print("O telefone não pode estar vazio.")
         else:
-            telefone_formatado =f"+{telefone_tratado[:2]} {telefone_tratado[2:7]}-{telefone_tratado[7:]}"
-            return telefone_formatado  
+            telefone_tratado = ""
+            for carater in telefone:
+                if carater.isdigit():
+                    telefone_tratado += carater
+            if len(telefone_tratado) != 11: 
+                print("Formato de telefone inválido (ex: 11 912345678).")
+            else:
+                telefone_formatado =f"+{telefone_tratado[:2]} {telefone_tratado[2:7]}-{telefone_tratado[7:]}"
+                return telefone_formatado  
  
 def ingresar_email(motivo_uso: str) -> str: 
     while True:
@@ -76,9 +77,15 @@ def verificar_lista(contatos: list[Contato]) -> bool:
 
 def filtrar_lista(contatos: list[Contato]) -> list[Contato]:
     contatos_filtrados: list[Contato] = []
-    for _, contato in enumerate(contatos):
+    for contato in contatos:
         if contato["favorito"] == True:
             contatos_filtrados.append(contato)
     return contatos_filtrados
+
+def buscar_telefone(contatos: list[Contato], tel_buscado) -> bool:
+    for contato in contatos:
+        if contato["telefone"] == tel_buscado:
+            return True
+    return False
        
                               

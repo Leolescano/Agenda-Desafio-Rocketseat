@@ -15,7 +15,13 @@ def mostrar_menu_agenda() -> None:
 def cadastrar_contato(lista_contatos: list[Contato]) -> None:
     limpar_tela()
     nome = ingresar_nome("cadastrar"); 
-    telefone = ingresar_telefone("cadastrar")
+    while True:
+        telefone = ingresar_telefone("cadastrar")
+        if not buscar_telefone(lista_contatos, telefone):
+            break 
+        else:
+            print("Esse numero já foi cadastrado")
+             
     email = ingresar_email("cadastrar")
     favorito = ingresar_favorito()
     contato: Contato  = {
@@ -35,12 +41,12 @@ def ver_contatos(contatos: list[Contato]) -> None:
             telefone = contato["telefone"]
             email = contato["email"]
             status = "✓" if contato["favorito"] == True else "" 
-            print("-----------------------")
+            print("------------------------")
             print(f"{i}. Nome: {nome}")            
             print(f"Telefone: {telefone}")
             print(f"E-mail: {email}")
             print(f"Favorito: [{status}]")        
-            # print("------------------------")
+            print("------------------------")
             if i % 3 == 0:
                 input("\nPressione Enter para continuar...\n")   
         input("\nPressione Enter para volver ao menu principal...")   
