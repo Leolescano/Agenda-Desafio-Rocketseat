@@ -5,7 +5,6 @@ def limpar_tela() -> None:
     os.system('clear' if os.name != 'nt' else 'cls')
 
 def ingresar_nome(motivo_uso: str) -> str:
-    # nome = ""
     while True:
         match motivo_uso:
             case "cadastrar":

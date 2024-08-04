@@ -40,8 +40,10 @@ def ver_contatos(contatos: list[Contato]) -> None:
             print(f"Telefone: {telefone}")
             print(f"E-mail: {email}")
             print(f"Favorito: [{status}]")        
-            print("------------------------")
-        input("Pressione Enter para continuar...")   
+            # print("------------------------")
+            if i % 3 == 0:
+                input("\nPressione Enter para continuar...\n")   
+        input("\nPressione Enter para volver ao menu principal...")   
         
 def buscar_contato (contatos: list[Contato], mensagem: str) -> Contato | None:
     if verificar_lista(contatos):
